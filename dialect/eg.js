@@ -1,77 +1,97 @@
-const emojis = require('./../../emojis');
+const emojis = require('../../emojis');
+const incorrect = emojis.emojis.incorrect;
+const correct = emojis.emojis.correct;
+const warning = emojis.emojis.warning;
+const reason = emojis.emojis.reason;
+const loading = emojis.emojis.loading;
+//Reason: There are a same mean in all i but it>>>
+const user_not_found = `**${incorrect} مش لاقي المستخدم ده في السيرفر.**`;
+
+const failure = (text="فشلت")=> {
+    return `**${incorrect} ${text}. اتاكد من صلاحيات, ان رتبتي اعلي من رتبة المستخدم ده. \n-# اذا المشكلة لم تحل, يرجاء التواصل مع الدعم.**`
+}
 
 module.exports = {
-    test: `هذا نص للهجة المصريه`,
+    test: "الكلام علي اي؟ - اللهجة المصريه",
     timeout: {
-        userNotFound: `**${emojis.emojis.incorrect} مش لاقي المستخدم ده في السيرفر.**`,
-        invalidDuration: `**${emojis.emojis.warning} يرجاء كتابة صيغة مدة التيم اوت بشكل صحيح، مثل: \`1m/1d/1h\` **`,
-        durationExceed: `**${emojis.emojis.warning} مدة التيم اوت لايمكن ان تزيد عن 28 يوم!**`, //TODO: Complete from here.
+        userNotFound: user_not_found,
+        invalidDuration: `**${warning} يرجاء كتابة صيغة مدة التيم اوت بشكل صحيح، مثل: \`1m/1d/1h\` **`,
+        durationExceed: `**${warning} مدة التيم اوت لايمكن ان تزيد عن 28 يوم!**`, 
         success: {
-            set: `**${emojis.emojis.correct} تم وضع مهلة للمستخدم {{user}} لمدة {{duration}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
-            remove: `**${emojis.emojis.correct} تمت إزالة المهلة عن المستخدم {{user}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
+            //`**${correct} تم وضع مهلة للمستخدم {{user}} لمدة {{duration}} بنجاح. ${reason} السبب: {{reason}}**`,    
+            set: `**${correct} تم اضافة تيم اوت للمستخدم {{user}} لمدة {{duration}},\n ${reason} السبب: {{reason}}.**`,
+            // `**${correct} تمت إزالة المهلة عن المستخدم {{user}} بنجاح. ${reason} السبب: {{reason}}**`
+            remove:`**${correct} تم ازالة التيم اوت بنجاح من المستخدم {{user}} \n ${reason} السبب: {{reason}}**`,
         },
-        failure: `**${emojis.emojis.incorrect} فشل في إعطاء مهلة للمستخدم. هل لدي الصلاحيات الصحيحة؟ تأكد أن رتبتي أعلى من رتبة المستخدم.\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`,
-        cannotSelf: `**${emojis.emojis.warning} لا يمكنك إعطاء مهلة لنفسك.**`,
-        cannotBot: `**${emojis.emojis.warning} لا يمكنك إعطائي مهلة.**`,
-        cannotHigher: `**${emojis.emojis.warning} لا يمكنك إعطاء مهلة لعضو رتبته مساوية أو أعلى من رتبتك.**`,
-        cannotModerate: `**${emojis.emojis.warning} لا أستطيع إعطاء مهلة لهذا المستخدم. ربما رتبته أعلى مني أو لديه صلاحيات المدير.**`,
-        invalidAction: `**${emojis.emojis.incorrect} إجراء غير صالح. استخدم 'set' أو 'remove'.**`,
+//`**${incorrect} فشل في إعطاء مهلة للمستخدم. هل لدي الصلاحيات الصحيحة؟ تأكد أن رتبتي أعلى من رتبة المستخدم.\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`
+        failure: failure("مقدرش ادي المستخدم تيم اوت"),
+        
+        cannotSelf: `**${warning} مينفعش تدي نفسك تيم اوت.**`,
+        cannotBot: `**${warning} مينفعش تديني تيم اوت :).**`,
+        //لا يمكنك إعطاء مهلة لعضو رتبته مساوية أو أعلى من رتبتك.
+        cannotHigher: `**${warning} متقدرش تدي المستخدم ده تيم اوت, ممكن المستخدم ده رتبته اعلي من رتبتك او معاه نفس رتبتك.**`,
+       // لا أستطيع إعطاء مهلة لهذا المستخدم. ربما رتبته أعلى مني أو لديه صلاحيات المدير.
+        cannotModerate: `**${warning} مقدرش ادي المستخدم ده تيم اوت. رتبته اعلي من رتبتي او معاها ادمن.**`,
+        //
+        invalidAction: `**${incorrect} إجراء غير صالح. استخدم 'set' أو 'remove'.**`,
     },
     ban: {
-        userNotFound: `**${emojis.emojis.incorrect} لم يتم العثور على المستخدم في هذا السيرفر.**`,
+        userNotFound: user_not_found,
         success: {
-            give: `**${emojis.emojis.correct} تم حظر {{user}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
-            remove: `**${emojis.emojis.correct} تم إلغاء حظر {{user}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
+            give: `**${correct} المستخدم {{user}} خد بان بنجاح \n${reason} السبب: {{reason}}.**`,
+//${emojis.emojis.correct} تم إلغاء حظر {{user}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}
+            remove: `**${correct} تم فك البان من المستخدم {{user}} بنجاح, \n ${reason} السبب: {{reason}}.**`,
         },
-        failure: `**${emojis.emojis.incorrect} فشل في حظر/إلغاء حظر المستخدم. هل لدي الصلاحيات الصحيحة؟ تأكد أن رتبتي أعلى من رتبة المستخدم.\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`,
-        cannotSelf: `**${emojis.emojis.warning} لا يمكنك حظر نفسك.**`,
-        cannotBot: `**${emojis.emojis.warning} لماذا؟ تواصل مع سيرفر الدعم للمزيد من المساعدة.**`,
-        cannotHigher: `**${emojis.emojis.warning} لا يمكنك حظر عضو رتبته مساوية أو أعلى من رتبتك.**`,
-        cannotModerate: `**${emojis.emojis.warning} لا أستطيع حظر هذا المستخدم. ربما رتبته أعلى مني أو لديه صلاحيات المدير.**`,
-        invalidAction: `**${emojis.emojis.incorrect} إجراء غير صالح. استخدم 'give' أو 'remove'.**`,
-        alreadyBanned: `**${emojis.emojis.warning} هذا المستخدم محظور بالفعل.**`,
+        //فشل في حظر/إلغاء حظر المستخدم. هل لدي الصلاحيات الصحيحة؟ تأكد أن رتبتي أعلى من رتبة المستخدم.\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.
+        failure:failure("فشل اعطاء/فك البان من المستخدم"),
+        cannotSelf: `**${warning} مش ينفع تدي نفسك بان...**`,
+        cannotBot: `**${warning} جاري الحظر. لحظة ده انا! ليه بس كده :( تواصل مع الدعم للمساعده.**`,
+        cannotHigher: `**${warning} متقدرش تدي بان لعضو اعلي من رتبتك او معاه نفس رتبتك.**`,
+        cannotModerate: `**${warning} مقدرش ادي المستخدم ده بان. رتبته اعلي من رتبتي او معاه ادمن.**`,
+        invalidAction: `**${incorrect} إجراء غير صالح. استخدم 'give' أو 'remove'.**`,
+        alreadyBanned: `**${warning} واخد بان اصلا! لو عاوز تشيله استخدم "remove".**`,
     },
     kick: {
-        userNotFound: `**${emojis.emojis.incorrect} لم يتم العثور على المستخدم في هذا السيرفر.**`,
-        kicked: `**${emojis.emojis.correct} تم طرد {{user}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
-        error: `**${emojis.emojis.incorrect} فشل في طرد المستخدم. هل لدي الصلاحيات الصحيحة؟ تأكد أن رتبتي أعلى من رتبة المستخدم.\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`,
-        cannotSelf: `**${emojis.emojis.warning} لا يمكنك طرد نفسك.**`,
-        cannotBot: `**${emojis.emojis.warning} لا يمكنك طردي.**`,
-        cannotHigher: `**${emojis.emojis.warning} لا يمكنك طرد عضو رتبته مساوية أو أعلى من رتبتك.**`,
-        botCannotHigher: `**${emojis.emojis.warning} لا أستطيع طرد عضو رتبته مساوية أو أعلى من رتبتي.**`,
-        cannotModerate: `**${emojis.emojis.warning} لا أستطيع طرد هذا المستخدم. ربما رتبته أعلى مني أو لديه صلاحيات المدير.**`,
+        userNotFound: user_not_found,
+        //تم طرد {{user}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}
+        kicked: `**${correct} تم طرد المستخدم {{user}} بنجاح. \n${reason} السبب: {{reason}}**`,
+        error: failure("مقدرش اطرد العضو ده"),
+        cannotSelf: `**${warning} مينفعش تطرد نفسك.**`,
+        cannotBot: `**${warning} هي حصلت تطردني!**`,
+        cannotHigher: `**${warning} متقدرش تطرد عضو رتبته اعلي منك او معا نفس رتبتك.**`,
+        botCannotHigher: `**${warning} مقدرش اطرد عضو رتبته اعلي من رتبتي او معاه نفس رتبتي.**`,
+        cannotModerate: `**${warning} مقدرش اطرد عضو رتبته اعلي من رتبتي او معاه ادمن.**`,
     },
     unban: {
-        userNotFound: `**${emojis.emojis.incorrect} لم يتم توفير معرف المستخدم.**`,
-        userNotBanned: `**${emojis.emojis.warning} هذا المستخدم غير محظور.**`,
-        unbanned: `**${emojis.emojis.correct} تم إلغاء حظر {{user}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
-        error: `**${emojis.emojis.incorrect} فشل في إلغاء حظر المستخدم. الخطأ: {{error}}**`
+        userNotFound: `**${incorrect} مش لاقي الـID في ليستت البان.**`,
+        userNotBanned: `**${warning} المستخدم مش واخد بان.**`,
+        unbanned: `**${correct} تم فك البان من المستخدم {{user}} بنجاح. \n${reason} السبب: {{reason}}**`,
+        error: `**${incorrect} فشل في إلغاء حظر المستخدم. الخطأ: {{error}}**` //! Why the user will care about the err?
     },
     lock: {
-        channelNotFound: `**${emojis.emojis.incorrect} لم يتم العثور على القناة.**`,
-        locked: `**${emojis.emojis.correct} تم قفل {{channel}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
-        alreadyLocked: `**${emojis.emojis.warning} هذه القناة مقفلة بالفعل.**`,
-        error: `**${emojis.emojis.incorrect} فشل في قفل القناة. هل لدي الصلاحيات الصحيحة?\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`,
-        cannotLock: `**${emojis.emojis.warning} لا أستطيع قفل هذه القناة. هل لدي الصلاحيات الصحيحة؟**`
+        channelNotFound: `**${incorrect} مش لاقي الروم دي.**`,
+        locked: `**${correct} تم إقفل {{channel}} بنجاح. \n${reason} السبب: {{reason}}**`,
+        alreadyLocked: `**${warning} الروم دي مقفوله اصلا! **`,
+        error: `**${incorrect} مقدرش اقفل الروم دي. أتاكد ان معايا الصلاحيات الازمة.\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`,
+        cannotLock: `**${warning} مقدرش اقفل الروم دي يرجاء التحقق من صلاحياتي.**`
     },
     unlock: {
-        channelNotFound: `**${emojis.emojis.incorrect} لم يتم العثور على القناة.**`,
-        unlocked: `**${emojis.emojis.correct} تم فتح {{channel}} بنجاح. ${emojis.emojis.reason} السبب: {{reason}}**`,
-        notLocked: `**${emojis.emojis.warning} هذه القناة غير مقفلة.**`,
-        error: `**${emojis.emojis.incorrect} فشل في فتح القناة. هل لدي الصلاحيات الصحيحة?\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`,
-        cannotUnlock: `**${emojis.emojis.warning} لا أستطيع فتح هذه القناة. هل لدي الصلاحيات الصحيحة؟**`
+        channelNotFound: `**${incorrect} مش لاقي الروم دي.**`,
+        unlocked: `**${correct} تم فتح {{channel}} بنجاح. \n${reason} السبب: {{reason}}**`,
+        notLocked: `**${warning} الروم مش مقفوله اصلا!**`,
+        error: `**${incorrect} مقدرش افتح الروم دي. يرجاء التحقق من صلاحياتي.\n-# إذا استمرت المشكلة، يرجى التواصل مع الدعم.**`,
+        cannotUnlock: `**${warning} مقدرش افتح الروم أتاكد من صلاحياتي.**`
     },
-
     avatar: {
-        onlyInServer: `**${emojis.emojis.warning} هذا الأمر يمكن استخدامه في السيرفر فقط!**`,
-        noIcon: `**${emojis.emojis.warning} هذا السيرفر ليس لديه أيقونة!**`,
-        noAvatar: `**${emojis.emojis.warning} المستخدم {{user}} ليس لديه صورة رمزية!**`,
+        onlyInServer: `**${warning} تقدر تستخدم الامر ده في السيرفرات فقط!**`,
+        noIcon: `**${warning} مفيش صوره للسيرفر ده!**`,
+        noAvatar: `**${warning} المستخدم {{user}} مش عنده صوره شخصية.**`,
         avatar: `صورة الملف الشخصي لـ `,
-        requestedBy: `بواسطة`,
-        errorFetching: `**${emojis.emojis.warning} حدث خطأ أثناء جلب الصورة الرمزية!**`,
-        invalidUser: `**${emojis.emojis.warning} مستخدم غير صالح!**`,
+        requestedBy: `تم الطلب بواسطة`,
+        errorFetching: `**${warning} مقدرتش اجيب الصوره!**`, //عامة - لانه لايوجد شئ اقدر اعرف منه تقصد المستخدم ول السيرفر
+        invalidUser: `**${warning} معرفش المستخدم.**`,
         type: `النوع:`,
-        icon: `أيقونة السيرفر لـ `,
+        icon: `صورة السيرفر لـ `,
         avatarTypes: {
             static: `ثابتة (PNG)`,
             animated: `متحركة (GIF)`,
@@ -82,14 +102,13 @@ module.exports = {
             uhd: `تحميل 4K`,
         },
     },
-
     banner: {
-        onlyInServer: `**${emojis.emojis.warning} هذا الأمر يمكن استخدامه في السيرفر فقط!**`,
-        noBanner: `**${emojis.emojis.warning} هذا السيرفر ليس لديه بانر!**`,
+        onlyInServer: `**${warning} تقدر تستخدام الامر في السيرفرات فقط!**`,
+        noBanner: `**${warning} مفيش بنر للسيرفر ده!**`,
         banner: `بانر السيرفر لـ `,
-        requestedBy: `بواسطة`,
-        errorFetching: `**${emojis.emojis.warning} حدث خطأ أثناء جلب الصورة!**`,
-        invalidUser: `**${emojis.emojis.warning} مستخدم غير صالح!**`,
+        requestedBy: `تم الطلب بواسطة`,
+        errorFetching: `**${warning} مقدرتش اجيب الصوره!**`,
+        invalidUser: `**${warning} معرفش المستخدم ده.**`,
         type: `النوع:`,
         accentColor: `اللون:`,
         userBanner: `بانر `,
@@ -104,30 +123,29 @@ module.exports = {
             uhd: `تحميل 4K`,
         }
     },
-
     // مشترك / عبارات شائعة
     common: {
-        coins: `عملة`,
-        captchaFailed: `**${emojis.emojis.warning} فشل في إنشاء صورة التحقق. حاول مرة أخرى.**`,
-        captchaPrompt: `${emojis.emojis.loading} اكتب الأحرف الموضحة في الصورة أدناه خلال **{{seconds}} ثانية**.`,
-        captchaIncorrect: `**${emojis.emojis.warning} رمز التحقق غير صحيح.**`,
-        captchaTimeout: `**${emojis.emojis.warning} انتهت مهلة التحقق.**`,
-        entered: `أدخلت`,
-        expected: `المتوقع`,
-        nothing: `لا شيء`,
-        noReason: `لم يتم تحديد سبب`,
-        underDevelopment: `**${emojis.emojis.warning} هذا الأمر قيد التطوير.**`,
+        coins: `جنية`,
+        captchaFailed: `**${warning} عملية انشاء صورة التحقق فشلت! حاول تاني.**`,
+        captchaPrompt: `${loading} اكتب الاحرف الـ في الصوره دي. قدماك**{{seconds}} ثانية**.`,
+        captchaIncorrect: `**${warning} رمز التحقق مش صح.**`,
+        captchaTimeout: `**${warning} وقت التحقق خلص.**`,
+        entered: `كتبت`,
+        expected: `المفروض تكتب`,
+        nothing: `مفيش`,
+        noReason: `مفيش سبب.`,
+        underDevelopment: `**${warning} الامر ده تحت التطوير.**`,
     },
 
     economy: {
         balance: {
-            title: `الملف الاقتصادي لـ {{user}}`,
+            title: `بروفيل الاقتصادي لـ {{user}}`,
             wallet: `رصيد المحفظة`,
             bank: `رصيد البنك`,
-            total: `إجمالي الثروة`,
-            transactions: `العمليات الأخيرة`,
-            noTransactions: `لا توجد عمليات حديثة.`,
-            requestedBy: `بواسطة`,
+            total: `إجمالي فلوسك`,
+            transactions: `اخر حاجه عملتها`,
+            noTransactions: `مفيش حاجه اتعملت اخر مره.`,
+            requestedBy: `تم الطلب بواسطة`,
             cooldown: `المكافأة اليومية`,
             ready: `جاهزة للاستلام!`,
             notReady: `متاحة خلال {{time}}`,
@@ -144,10 +162,10 @@ module.exports = {
             received: `تم الاستلام`,
             tax: `الضريبة (5%)`,
             totalSent: `إجمالي المرسل`,
-            insufficient: `ليس لديك رصيد كافٍ!`,
-            invalidAmount: `مبلغ غير صالح. أدخل رقمًا صحيحًا أكبر من 0 (الكسور غير مسموحة).`,
-            selfTransfer: `فشل التحويل: لا يمكنك إرسال عملات لنفسك.`,
-            botTransfer: `فشل التحويل: لا يمكن للحسابات الآلية استلام العملات.`,
+            insufficient: `معكش فلوس كفايه.`,
+            invalidAmount: `المبلغ غلط. دخل المبلغ صح, لازم اكبر من الـ0 و الكسور مش مسموح بيها.`,
+            selfTransfer: `فشل التحويل: متقدرش تبعت لنفسك.`,
+            botTransfer: `فشل التحويل: من امتي و البوتات عندها حسابات.`, //TODO: Complete from here
             accountTooNew: `تم حظر التحويل: يجب أن يكون عمر حسابك في ديسكورد 30 يومًا على الأقل.`,
             recipientTooNew: `تم حظر التحويل: يجب أن يكون عمر حساب المستلم 30 يومًا على الأقل.`,
             insufficientBalance: `فشل التحويل: رصيد غير كافٍ.\nرصيدك الحالي: **{{balance}}** عملة.`,
