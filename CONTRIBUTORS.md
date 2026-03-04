@@ -1,4 +1,5 @@
 # Contributors 
-![Egyptian dialect](dialect/eg.js)
-Credit: ![dzan](https://github.com/users/d-zan) 
-Status: `Working on it`
+
+1. [Egyptian dialect](dialect/eg.js)
+- Credit: [dzan](https://github.com/users/d-zan) 
+- Status: `Working on it`
