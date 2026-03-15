@@ -394,6 +394,7 @@ module.exports = {
         mass_title: `一括切断`,
         mass_desc: `**{channel}**からすべてのユーザーを切断しました。`,
         success: `切断完了`,
+        no_premium: `**${emojis.emojis.warning} この機能はプレミアムサブスクリプションが必要です。一括切断を使用するにはアップグレードしてください。**`,
     },
 
     addemoji: {

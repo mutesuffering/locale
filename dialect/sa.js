@@ -394,6 +394,7 @@ module.exports = {
         mass_title: `تصفية جماعية`,
         mass_desc: `كرشنا الكل من **{channel}** ورتحنا.`,
         success: `تم الشوت`,
+        no_premium: ``
     },
 
     addemoji: {

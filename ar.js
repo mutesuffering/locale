@@ -394,6 +394,7 @@ module.exports = {
         mass_title: `قطع اتصال جماعي`,
         mass_desc: `تم قطع اتصال جميع المستخدمين من **{channel}**.`,
         success: `تم قطع الاتصال`,
+        no_premium: `**${emojis.emojis.warning} هذه الميزة تتطلب اشتراكًا مميزًا. يرجى الترقية لاستخدام قطع الاتصال الجماعي.**`
     },
 
     addemoji: {

@@ -394,6 +394,7 @@ module.exports = {
         mass_title: `Mass Disconnect`,
         mass_desc: `All users disconnected from **{channel}**.`,
         success: `Disconnected`,
+        no_premium: `**${emojis.emojis.warning} This feature requires a premium subscription. Please upgrade to use mass disconnect.**`,
     },
 
     addemoji: {
