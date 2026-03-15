@@ -400,7 +400,7 @@ module.exports = {
         mass_title: `طرد الجميع`,
         mass_desc: `تم طرد جميع الاعضاء من **{channel}**.`,
         success: `تم طرد من الفويس.`,
-        no_premium: ``
+        no_premium: `هذه الخاصية لمشتكي بريميم فقط!`
     },
 
     addemoji: {
